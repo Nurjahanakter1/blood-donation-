@@ -24,9 +24,9 @@ import {
   Award,
   User,
 } from 'lucide-react-native';
-import COLORS from '../styles/colors';
+import COLORS from '../../styles/colors';
 
-const DonorDetailScreen = ({ route, navigation }) => {
+const DonorDetail = ({ route, navigation }) => {
   const { donor } = route.params;
 
   const handleCall = () => {
@@ -129,7 +129,7 @@ const DonorDetailScreen = ({ route, navigation }) => {
             <Image
               source={{ uri: donor.image }}
               style={styles.profileImage}
-              defaultSource={require('../../assets/blood-image-logo.jpg')}
+              defaultSource={require('../../../assets/blood-image-logo.jpg')}
             />
             {/* Availability Badge */}
             <View
@@ -555,4 +555,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonorDetailScreen;
+export default DonorDetail;

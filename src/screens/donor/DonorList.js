@@ -11,11 +11,11 @@ import {
   Alert,
 } from 'react-native';
 import { Search, ArrowLeft, SlidersHorizontal, Droplets } from 'lucide-react-native';
-import DonorCard from '../components/DonorCard';
-import DONORS, { BLOOD_GROUPS } from '../data/donors';
-import COLORS from '../styles/colors';
+import DonorCard from '../../components/DonorCard';
+import DONORS, { BLOOD_GROUPS } from '../../data/donor/donors';
+import COLORS from '../../styles/colors';
 
-const DonorListScreen = ({ navigation }) => {
+const DonorList = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('All');
 
@@ -347,4 +347,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DonorListScreen;
+export default DonorList;

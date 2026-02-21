@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { Mail, ArrowLeft, KeyRound } from 'lucide-react-native';
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import COLORS from '../styles/colors';
-import { isEmailRegistered } from '../data/staticUsers';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import COLORS from '../../styles/colors';
+import { isEmailRegistered } from '../../data/auth/users';
 
-const ForgotPasswordScreen = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: '',
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgotPasswordScreen;
+export default ForgotPassword;

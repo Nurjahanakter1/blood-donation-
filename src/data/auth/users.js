@@ -1,5 +1,5 @@
-// Static temporary user data for UI testing (No backend)
-// These are demo accounts for testing login/register flow
+// Static User Data - Authentication (No backend)
+// Demo accounts for testing login/register flow
 
 const STATIC_USERS = [
   {
@@ -27,18 +27,18 @@ const STATIC_USERS = [
     bloodGroup: 'A+',
   },
   {
-    id: '3',
+    id: '4',
     fullName: 'Admin',
     email: 'admin@gmail.com',
-    phone: '0191234567',
+    phone: '0191234568',
     password: 'admin123',
     bloodGroup: 'B-',
   },
   {
-    id: '3',
+    id: '5',
     fullName: 'User',
     email: 'user@gmail.com',
-    phone: '0191234567',
+    phone: '0191234569',
     password: 'user123',
     bloodGroup: 'B+',
   },

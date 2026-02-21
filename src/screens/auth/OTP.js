@@ -10,14 +10,14 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 import { ArrowLeft, ShieldCheck } from 'lucide-react-native';
-import COLORS from '../styles/colors';
-import { STATIC_OTP } from '../data/staticUsers';
+import COLORS from '../../styles/colors';
+import { STATIC_OTP } from '../../data/auth/users';
 
 const OTP_LENGTH = 4;
 
-const OTPScreen = ({ navigation }) => {
+const OTP = ({ navigation }) => {
   const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(''));
   const [timer, setTimer] = useState(30);
   const inputRefs = useRef([]);
@@ -285,4 +285,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OTPScreen;
+export default OTP;

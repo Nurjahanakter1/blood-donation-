@@ -3,14 +3,12 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import COLORS from '../styles/colors';
 
-// Screens
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
-import OTPScreen from '../screens/OTPScreen';
-import HomeScreen from '../screens/HomeScreen';
-import DonorListScreen from '../screens/DonorListScreen';
-import DonorDetailScreen from '../screens/DonorDetailScreen';
+// Auth Screens
+import { Login, Register, ForgotPassword, OTP } from '../screens/auth';
+// Home Screen
+import { Home } from '../screens/home';
+// Donor Screens
+import { DonorList, DonorDetail } from '../screens/donor';
 
 const Stack = createStackNavigator();
 
@@ -38,14 +36,15 @@ const AppNavigator = () => {
       initialRouteName="Login"
       screenOptions={defaultScreenOptions}
     >
+      {/* Auth Flow */}
       <Stack.Screen
         name="Login"
-        component={LoginScreen}
+        component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Register"
-        component={RegisterScreen}
+        component={Register}
         options={{
           title: 'Sign Up',
           headerShown: false,
@@ -53,7 +52,7 @@ const AppNavigator = () => {
       />
       <Stack.Screen
         name="ForgotPassword"
-        component={ForgotPasswordScreen}
+        component={ForgotPassword}
         options={{
           title: 'Reset Password',
           headerShown: false,
@@ -61,30 +60,34 @@ const AppNavigator = () => {
       />
       <Stack.Screen
         name="OTP"
-        component={OTPScreen}
+        component={OTP}
         options={{
           title: 'Verify OTP',
           headerShown: false,
         }}
       />
+
+      {/* Main App */}
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={Home}
         options={{
           headerShown: false,
           gestureEnabled: false, // Prevent going back to login
         }}
       />
+
+      {/* Donor Flow */}
       <Stack.Screen
         name="DonorList"
-        component={DonorListScreen}
+        component={DonorList}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
         name="DonorDetail"
-        component={DonorDetailScreen}
+        component={DonorDetail}
         options={{
           headerShown: false,
         }}

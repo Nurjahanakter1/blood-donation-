@@ -16,80 +16,10 @@ import {
   MapPin,
   Heart,
   Droplets,
-  Syringe,
-  ClipboardList,
-  UserSearch,
-  HandHeart,
   CircleUser,
 } from 'lucide-react-native';
-import COLORS from '../styles/colors';
-
-// ─── Static Data ─────────────────────────────────────────────────
-const QUICK_ACTIONS = [
-  { id: '1', title: 'Find Donor', Icon: UserSearch, color: '#E53935' },
-  { id: '2', title: 'Request Blood', Icon: Droplets, color: '#1E88E5' },
-  { id: '3', title: 'Donate Now', Icon: HandHeart, color: '#43A047' },
-  { id: '4', title: 'History', Icon: ClipboardList, color: '#FB8C00' },
-];
-
-const STATIC_DONORS = [
-  {
-    id: '1',
-    name: 'Hasan Khan',
-    bloodGroup: 'A+',
-    location: 'Cumila Bangladesh',
-    lastDonated: '2 months ago',
-    avatar: '👨',
-    available: true,
-  },
-  {
-    id: '2',
-    name: 'Umme Hani ',
-    bloodGroup: 'O+',
-    location: 'Nokhali Bangladesh',
-    lastDonated: '1 month ago',
-    avatar: '👩',
-    available: true,
-  },
-  {
-    id: '3',
-    name: 'Rahat Chowdhury',
-    bloodGroup: 'B+',
-    location: 'khulan Bangladesh',
-    lastDonated: '3 months ago',
-    avatar: '👨',
-    available: false,
-  },
-  {
-    id: '4',
-    name: 'Nusrat Jahan',
-    bloodGroup: 'AB-',
-    location: 'Chittogong Bangladesh',
-    lastDonated: '2 weeks ago',
-    avatar: '👩',
-    available: true,
-  },
-  {
-    id: '5',
-    name: 'Reshima Akter',
-    bloodGroup: 'O-',
-    location: 'Narayanganj Bangladesh',
-    lastDonated: '6 months ago',
-    avatar: '👨',
-    available: true,
-  },
-];
-
-const BLOOD_STATS = [
-  { type: 'A+', units: 24 },
-  { type: 'B+', units: 18 },
-  { type: 'O+', units: 32 },
-  { type: 'AB+', units: 8 },
-  { type: 'A-', units: 12 },
-  { type: 'B-', units: 6 },
-  { type: 'O-', units: 15 },
-  { type: 'AB-', units: 4 },
-];
+import COLORS from '../../styles/colors';
+import { QUICK_ACTIONS, STATIC_DONORS, BLOOD_STATS } from '../../data/home/homeData';
 
 // ─── Sub-Components ──────────────────────────────────────────────
 const QuickActionCard = ({ item, onPress }) => (
@@ -109,7 +39,7 @@ const BloodStatBadge = ({ item }) => (
   </View>
 );
 
-const DonorCard = ({ donor }) => (
+const NearbyDonorCard = ({ donor }) => (
   <TouchableOpacity style={styles.donorCard} activeOpacity={0.7}>
     <View style={styles.donorLeft}>
       <View style={styles.avatarCircle}>
@@ -142,7 +72,7 @@ const DonorCard = ({ donor }) => (
 );
 
 // ─── Home Screen ─────────────────────────────────────────────────
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
   return (
     <ScrollView
       style={styles.container}
@@ -236,7 +166,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
           <Image
-            source={require('../../assets/home/doctor.jpg')}
+            source={require('../../../assets/home/doctor.jpg')}
             style={styles.cardImage}
             resizeMode="cover"
           />
@@ -256,7 +186,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
           <Image
-            source={require('../../assets/home/mans.jpg')}
+            source={require('../../../assets/home/mans.jpg')}
             style={styles.cardImage}
             resizeMode="cover"
           />
@@ -272,7 +202,7 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         {STATIC_DONORS.map((donor) => (
-          <DonorCard key={donor.id} donor={donor} />
+          <NearbyDonorCard key={donor.id} donor={donor} />
         ))}
       </View>
 
@@ -644,4 +574,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;

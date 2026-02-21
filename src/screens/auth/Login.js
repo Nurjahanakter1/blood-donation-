@@ -14,14 +14,14 @@ import {
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { Mail, Lock } from 'lucide-react-native';
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import COLORS from '../styles/colors';
-import { validateLogin } from '../data/staticUsers';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import COLORS from '../../styles/colors';
+import { validateLogin } from '../../data/auth/users';
 
 const { width } = Dimensions.get('window');
 
-const LoginScreen = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: '',
@@ -56,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
         {/* Hero Image Section */}
         <View style={styles.imageSection}>
           <Image
-            source={require('../../assets/login/man-women.jpg')}
+            source={require('../../../assets/login/man-women.jpg')}
             style={styles.heroImage}
             resizeMode="cover"
           />
@@ -131,7 +131,7 @@ const LoginScreen = ({ navigation }) => {
             <View style={styles.socialRow}>
               <TouchableOpacity style={styles.socialBtn} activeOpacity={0.7}>
                 <Image
-                  source={require('../../assets/login/google.png')}
+                  source={require('../../../assets/login/google.png')}
                   style={styles.socialIcon}
                   resizeMode="contain"
                 />
@@ -140,7 +140,7 @@ const LoginScreen = ({ navigation }) => {
 
               <TouchableOpacity style={styles.socialBtn} activeOpacity={0.7}>
                 <Image
-                  source={require('../../assets/login/facebook.png')}
+                  source={require('../../../assets/login/facebook.png')}
                   style={styles.socialIcon}
                   resizeMode="contain"
                 />
@@ -301,4 +301,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Login;

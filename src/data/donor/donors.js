@@ -1,4 +1,4 @@
-// Donor Dummy Data - 24 Donors with Pexels profile images
+// Donor Data - 24 Donors with Pexels profile images
 const DONORS = [
   {
     id: '1',

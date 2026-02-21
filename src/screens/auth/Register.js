@@ -14,16 +14,16 @@ import {
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { User, Phone, Lock, ShieldCheck, Mail } from 'lucide-react-native';
-import CustomInput from '../components/CustomInput';
-import CustomButton from '../components/CustomButton';
-import CustomDropdown from '../components/CustomDropdown';
-import COLORS from '../styles/colors';
-import { addUser, findUserByEmail } from '../data/staticUsers';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import CustomDropdown from '../../components/CustomDropdown';
+import COLORS from '../../styles/colors';
+import { addUser, findUserByEmail } from '../../data/auth/users';
 
 const { width } = Dimensions.get('window');
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-const RegisterScreen = ({ navigation }) => {
+const Register = ({ navigation }) => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       fullName: '',
@@ -79,7 +79,7 @@ const RegisterScreen = ({ navigation }) => {
         {/* Hero Image */}
         <View style={styles.imageSection}>
           <Image
-            source={require('../../assets/login/man.jpg')}
+            source={require('../../../assets/login/man.jpg')}
             style={styles.heroImage}
             resizeMode="cover"
           />
@@ -285,4 +285,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default Register;
