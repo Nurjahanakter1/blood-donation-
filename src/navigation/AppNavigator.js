@@ -9,6 +9,8 @@ import RegisterScreen from '../screens/RegisterScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import OTPScreen from '../screens/OTPScreen';
 import HomeScreen from '../screens/HomeScreen';
+import DonorListScreen from '../screens/DonorListScreen';
+import DonorDetailScreen from '../screens/DonorDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -71,6 +73,20 @@ const AppNavigator = () => {
         options={{
           headerShown: false,
           gestureEnabled: false, // Prevent going back to login
+        }}
+      />
+      <Stack.Screen
+        name="DonorList"
+        component={DonorListScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="DonorDetail"
+        component={DonorDetailScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

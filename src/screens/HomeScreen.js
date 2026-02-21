@@ -92,8 +92,8 @@ const BLOOD_STATS = [
 ];
 
 // ─── Sub-Components ──────────────────────────────────────────────
-const QuickActionCard = ({ item }) => (
-  <TouchableOpacity style={styles.actionCard} activeOpacity={0.7}>
+const QuickActionCard = ({ item, onPress }) => (
+  <TouchableOpacity style={styles.actionCard} activeOpacity={0.7} onPress={onPress}>
     <View style={[styles.actionIconBg, { backgroundColor: item.color + '15' }]}>
       <item.Icon size={26} color={item.color} />
     </View>
@@ -169,7 +169,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       {/* Emergency Banner */}
-      <TouchableOpacity style={styles.emergencyBanner} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.emergencyBanner} activeOpacity={0.8} onPress={() => navigation.navigate('DonorList')}>
         <View style={styles.emergencyLeft}>
           <View style={styles.emergencyIconBg}>
             <AlertTriangle size={24} color="#E65100" />
@@ -191,7 +191,15 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.sectionTitle}>Quick Actions</Text>
         <View style={styles.actionsGrid}>
           {QUICK_ACTIONS.map((item) => (
-            <QuickActionCard key={item.id} item={item} />
+            <QuickActionCard
+              key={item.id}
+              item={item}
+              onPress={() => {
+                if (item.title === 'Find Donor') {
+                  navigation.navigate('DonorList');
+                }
+              }}
+            />
           ))}
         </View>
       </View>
@@ -217,7 +225,7 @@ const HomeScreen = ({ navigation }) => {
 
       {/* Find Donor Card */}
       <View style={styles.section}>
-        <TouchableOpacity style={styles.findDonorCard} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.findDonorCard} activeOpacity={0.8} onPress={() => navigation.navigate('DonorList')}>
           <View style={styles.findDonorContent}>
             <Text style={styles.findDonorTitle}>Find a Donor</Text>
             <Text style={styles.findDonorDesc}>
@@ -259,7 +267,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.section}>
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Nearby Donors</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('DonorList')}>
             <Text style={styles.seeAll}>View All</Text>
           </TouchableOpacity>
         </View>
