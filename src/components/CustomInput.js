@@ -1,11 +1,11 @@
 // Reusable Custom Input Component with React Hook Form support
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   TextInput,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import { Controller } from 'react-hook-form';
 import COLORS from '../styles/colors';
@@ -25,6 +25,7 @@ const CustomInput = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const inputRef = useRef(null);
 
   return (
     <Controller
@@ -34,17 +35,22 @@ const CustomInput = ({
       render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
         <View style={styles.container}>
           {label && <Text style={styles.label}>{label}</Text>}
-          <View
+          <Pressable
             style={[
               styles.inputWrapper,
               isFocused && styles.inputWrapperFocused,
               error && styles.inputWrapperError,
               !editable && styles.inputWrapperDisabled,
             ]}
-            pointerEvents={editable ? 'auto' : 'none'}
+            onPress={() => {
+              if (editable && inputRef.current) {
+                inputRef.current.focus();
+              }
+            }}
           >
-            {icon && <View style={styles.iconContainer} pointerEvents="none">{icon}</View>}
+            {icon && <View style={styles.iconContainer}>{icon}</View>}
             <TextInput
+              ref={inputRef}
               style={[
                 styles.input,
                 icon && styles.inputWithIcon,
@@ -68,16 +74,17 @@ const CustomInput = ({
               autoCorrect={false}
             />
             {secureTextEntry && (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => setShowPassword(!showPassword)}
                 style={styles.eyeButton}
+                hitSlop={8}
               >
                 <Text style={styles.eyeText}>
                   {showPassword ? '🙈' : '👁️'}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             )}
-          </View>
+          </Pressable>
           {error && (
             <Text style={styles.errorText}>{error.message || 'Required'}</Text>
           )}

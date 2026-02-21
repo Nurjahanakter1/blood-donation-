@@ -286,7 +286,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingTop: 16,
+    paddingBottom: 40,
     paddingHorizontal: 24,
   },
   registerText: {
