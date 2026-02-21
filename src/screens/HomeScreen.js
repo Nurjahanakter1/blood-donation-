@@ -26,10 +26,10 @@ import COLORS from '../styles/colors';
 
 // ─── Static Data ─────────────────────────────────────────────────
 const QUICK_ACTIONS = [
-  { id: '1', title: 'Find Donor', icon: '🔍', color: '#E53935' },
-  { id: '2', title: 'Request Blood', icon: '🩸', color: '#1E88E5' },
-  { id: '3', title: 'Donate Now', icon: '💉', color: '#43A047' },
-  { id: '4', title: 'History', icon: '📋', color: '#FB8C00' },
+  { id: '1', title: 'Find Donor', Icon: UserSearch, color: '#E53935' },
+  { id: '2', title: 'Request Blood', Icon: Droplets, color: '#1E88E5' },
+  { id: '3', title: 'Donate Now', Icon: HandHeart, color: '#43A047' },
+  { id: '4', title: 'History', Icon: ClipboardList, color: '#FB8C00' },
 ];
 
 const STATIC_DONORS = [
@@ -95,7 +95,7 @@ const BLOOD_STATS = [
 const QuickActionCard = ({ item }) => (
   <TouchableOpacity style={styles.actionCard} activeOpacity={0.7}>
     <View style={[styles.actionIconBg, { backgroundColor: item.color + '15' }]}>
-      <Text style={styles.actionIcon}>{item.icon}</Text>
+      <item.Icon size={26} color={item.color} />
     </View>
     <Text style={styles.actionTitle}>{item.title}</Text>
   </TouchableOpacity>
@@ -113,11 +113,14 @@ const DonorCard = ({ donor }) => (
   <TouchableOpacity style={styles.donorCard} activeOpacity={0.7}>
     <View style={styles.donorLeft}>
       <View style={styles.avatarCircle}>
-        <Text style={styles.avatarText}>{donor.avatar}</Text>
+        <CircleUser size={28} color={COLORS.primary} />
       </View>
       <View style={styles.donorInfo}>
         <Text style={styles.donorName}>{donor.name}</Text>
-        <Text style={styles.donorLocation}>📍 {donor.location}</Text>
+        <View style={styles.locationRow}>
+          <MapPin size={12} color={COLORS.grey} />
+          <Text style={styles.donorLocation}>{donor.location}</Text>
+        </View>
         <Text style={styles.donorDonated}>Last donated: {donor.lastDonated}</Text>
       </View>
     </View>
@@ -153,14 +156,14 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.greetingSub}>Ready to save a life today?</Text>
           </View>
           <TouchableOpacity style={styles.notificationBtn}>
-            <Text style={styles.notificationIcon}>🔔</Text>
+            <Bell size={22} color={COLORS.white} />
             <View style={styles.notifBadge} />
           </TouchableOpacity>
         </View>
 
         {/* Search Bar (UI only) */}
         <TouchableOpacity style={styles.searchBar} activeOpacity={0.8}>
-          <Text style={styles.searchIcon}>🔍</Text>
+          <Search size={18} color="rgba(255,255,255,0.7)" />
           <Text style={styles.searchPlaceholder}>Search blood group, city...</Text>
         </TouchableOpacity>
       </View>
@@ -168,7 +171,9 @@ const HomeScreen = ({ navigation }) => {
       {/* Emergency Banner */}
       <TouchableOpacity style={styles.emergencyBanner} activeOpacity={0.8}>
         <View style={styles.emergencyLeft}>
-          <Text style={styles.emergencyIcon}>🚨</Text>
+          <View style={styles.emergencyIconBg}>
+            <AlertTriangle size={24} color="#E65100" />
+          </View>
           <View>
             <Text style={styles.emergencyTitle}>Emergency?</Text>
             <Text style={styles.emergencySubtitle}>
@@ -222,7 +227,11 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.findDonorBtnText}>Search Now →</Text>
             </View>
           </View>
-          <Text style={styles.findDonorEmoji}>🔎🩸</Text>
+          <Image
+            source={require('../../assets/home/doctor.jpg')}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
         </TouchableOpacity>
       </View>
 
@@ -238,7 +247,11 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.requestBtnText}>Request Now →</Text>
             </View>
           </View>
-          <Text style={styles.requestEmoji}>🏥💊</Text>
+          <Image
+            source={require('../../assets/home/mans.jpg')}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
         </TouchableOpacity>
       </View>
 
@@ -301,9 +314,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  notificationIcon: {
-    fontSize: 22,
-  },
   notifBadge: {
     position: 'absolute',
     top: 10,
@@ -321,9 +331,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 10,
-  },
-  searchIcon: {
-    fontSize: 16,
   },
   searchPlaceholder: {
     fontSize: 15,
@@ -349,8 +356,13 @@ const styles = StyleSheet.create({
     gap: 12,
     flex: 1,
   },
-  emergencyIcon: {
-    fontSize: 28,
+  emergencyIconBg: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#FFE0B2',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   emergencyTitle: {
     fontSize: 16,
@@ -424,9 +436,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  actionIcon: {
-    fontSize: 24,
   },
   actionTitle: {
     fontSize: 14,
@@ -504,9 +513,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 13,
   },
-  findDonorEmoji: {
-    fontSize: 50,
-    marginLeft: 10,
+  cardImage: {
+    width: 90,
+    height: 90,
+    borderRadius: 12,
+    marginLeft: 12,
   },
 
   // Request Blood Card
@@ -545,10 +556,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 13,
   },
-  requestEmoji: {
-    fontSize: 50,
-    marginLeft: 10,
-  },
 
   // Donor Card
   donorCard: {
@@ -579,9 +586,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  avatarText: {
-    fontSize: 22,
-  },
   donorInfo: {
     flex: 1,
   },
@@ -591,10 +595,15 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: 3,
   },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 2,
+  },
   donorLocation: {
     fontSize: 12,
     color: COLORS.grey,
-    marginBottom: 2,
   },
   donorDonated: {
     fontSize: 11,

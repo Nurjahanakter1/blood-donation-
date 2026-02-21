@@ -10,13 +10,15 @@ import {
   Platform,
   Image,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { User, Phone, Lock, ShieldCheck } from 'lucide-react-native';
+import { User, Phone, Lock, ShieldCheck, Mail } from 'lucide-react-native';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import CustomDropdown from '../components/CustomDropdown';
 import COLORS from '../styles/colors';
+import { addUser, findUserByEmail } from '../data/staticUsers';
 
 const { width } = Dimensions.get('window');
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -25,6 +27,7 @@ const RegisterScreen = ({ navigation }) => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       fullName: '',
+      email: '',
       phone: '',
       bloodGroup: '',
       password: '',
@@ -35,20 +38,43 @@ const RegisterScreen = ({ navigation }) => {
   const password = watch('password');
 
   const onRegisterPress = (data) => {
-    // UI only - navigate to OTP
-    console.log('Register Data:', data);
-    navigation.navigate('OTP');
+    // Check if email already exists
+    const existingUser = findUserByEmail(data.email);
+    if (existingUser) {
+      Alert.alert(
+        '⚠️ Already Registered',
+        'This email is already registered. Please login instead.',
+        [{ text: 'Go to Login', onPress: () => navigation.goBack() }]
+      );
+      return;
+    }
+
+    // Add new user to static list
+    const newUser = addUser({
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      bloodGroup: data.bloodGroup,
+    });
+
+    Alert.alert(
+      '🎉 Registration Successful!',
+      `Welcome ${data.fullName}! Your account has been created. Please verify your OTP.`,
+      [{ text: 'Verify OTP', onPress: () => navigation.navigate('OTP') }]
+    );
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}
       >
         {/* Hero Image */}
         <View style={styles.imageSection}>
@@ -81,6 +107,22 @@ const RegisterScreen = ({ navigation }) => {
               },
             }}
             icon={<User size={20} color={COLORS.grey} />}
+          />
+
+          <CustomInput
+            control={control}
+            name="email"
+            label="Email Address"
+            placeholder="Enter your email"
+            keyboardType="email-address"
+            rules={{
+              required: 'Email is required',
+              pattern: {
+                value: /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: 'Enter a valid email address',
+              },
+            }}
+            icon={<Mail size={20} color={COLORS.grey} />}
           />
 
           <CustomInput

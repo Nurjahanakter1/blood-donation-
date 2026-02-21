@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { Mail, ArrowLeft, KeyRound } from 'lucide-react-native';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import COLORS from '../styles/colors';
+import { isEmailRegistered } from '../data/staticUsers';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const { control, handleSubmit } = useForm({
@@ -23,20 +25,32 @@ const ForgotPasswordScreen = ({ navigation }) => {
   });
 
   const onSendOTP = (data) => {
-    // UI only - navigate to OTP
-    console.log('Forgot Password Data:', data);
-    navigation.navigate('OTP');
+    const exists = isEmailRegistered(data.email);
+    if (exists) {
+      Alert.alert(
+        '✅ OTP Sent!',
+        `A verification code has been sent to ${data.email}. Use code: 1234`,
+        [{ text: 'Enter OTP', onPress: () => navigation.navigate('OTP') }]
+      );
+    } else {
+      Alert.alert(
+        '❌ Account Not Found',
+        'No account found with this email/phone. Please check and try again.',
+        [{ text: 'Try Again' }]
+      );
+    }
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}
       >
         {/* Back Button */}
         <TouchableOpacity

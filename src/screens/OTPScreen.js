@@ -8,9 +8,12 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
+import { ArrowLeft, ShieldCheck } from 'lucide-react-native';
 import COLORS from '../styles/colors';
+import { STATIC_OTP } from '../data/staticUsers';
 
 const OTP_LENGTH = 4;
 
@@ -56,17 +59,26 @@ const OTPScreen = ({ navigation }) => {
 
   const onVerifyPress = () => {
     const code = otp.join('');
-    console.log('OTP:', code);
-    // UI only - navigate to Home
-    navigation.navigate('Home');
+    if (code === STATIC_OTP) {
+      Alert.alert(
+        '✅ Verified!',
+        'Your account has been verified successfully. Password recovery complete!',
+        [{ text: 'Go to Login', onPress: () => navigation.navigate('Login') }]
+      );
+    } else {
+      Alert.alert(
+        '❌ Invalid OTP',
+        'The code you entered is incorrect. Please try again. (Hint: use 1234)',
+        [{ text: 'Try Again' }]
+      );
+    }
   };
 
   const onResendPress = () => {
     setTimer(30);
     setOtp(new Array(OTP_LENGTH).fill(''));
     inputRefs.current[0]?.focus();
-    // Restart timer (UI only)
-    console.log('Resend OTP');
+    Alert.alert('📩 OTP Resent', 'A new verification code has been sent. Use code: 1234');
   };
 
   const isComplete = otp.every((digit) => digit !== '');
@@ -83,7 +95,7 @@ const OTPScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.content}>
         {/* Back Button */}
@@ -91,13 +103,13 @@ const OTPScreen = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Text style={styles.backArrow}>←</Text>
+          <ArrowLeft size={22} color={COLORS.text} />
         </TouchableOpacity>
 
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.iconCircle}>
-            <Text style={styles.shieldIcon}>🛡️</Text>
+            <ShieldCheck size={36} color={COLORS.primary} />
           </View>
           <Text style={styles.title}>Verification Code</Text>
           <Text style={styles.subtitle}>
@@ -178,10 +190,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backArrow: {
-    fontSize: 22,
-    color: COLORS.text,
-  },
   header: {
     alignItems: 'center',
     marginTop: 32,
@@ -195,9 +203,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-  },
-  shieldIcon: {
-    fontSize: 36,
   },
   title: {
     fontSize: 26,

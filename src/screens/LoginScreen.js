@@ -10,12 +10,14 @@ import {
   Platform,
   Image,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { Mail, Lock } from 'lucide-react-native';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import COLORS from '../styles/colors';
+import { validateLogin } from '../data/staticUsers';
 
 const { width } = Dimensions.get('window');
 
@@ -28,20 +30,28 @@ const LoginScreen = ({ navigation }) => {
   });
 
   const onLoginPress = (data) => {
-    // UI only - navigate to Home
-    console.log('Login Data:', data);
-    navigation.navigate('Home');
+    const result = validateLogin(data.email, data.password);
+    if (result.success) {
+      Alert.alert(
+        '✅ Login Successful!',
+        `Welcome back, ${result.user.fullName}!`,
+        [{ text: 'Continue', onPress: () => navigation.navigate('Home') }]
+      );
+    } else {
+      Alert.alert('❌ Login Failed', result.message, [{ text: 'Try Again' }]);
+    }
   };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled={true}
       >
         {/* Hero Image Section */}
         <View style={styles.imageSection}>

@@ -41,8 +41,9 @@ const CustomInput = ({
               error && styles.inputWrapperError,
               !editable && styles.inputWrapperDisabled,
             ]}
+            pointerEvents={editable ? 'auto' : 'none'}
           >
-            {icon && <View style={styles.iconContainer}>{icon}</View>}
+            {icon && <View style={styles.iconContainer} pointerEvents="none">{icon}</View>}
             <TextInput
               style={[
                 styles.input,
@@ -64,6 +65,7 @@ const CustomInput = ({
               editable={editable}
               maxLength={maxLength}
               autoCapitalize="none"
+              autoCorrect={false}
             />
             {secureTextEntry && (
               <TouchableOpacity
