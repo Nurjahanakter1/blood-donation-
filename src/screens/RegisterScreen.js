@@ -129,14 +129,14 @@ const RegisterScreen = ({ navigation }) => {
             control={control}
             name="phone"
             label="Phone Number"
-            placeholder="Enter 10-digit phone number"
+            placeholder="+880 1XXXXXXXXX"
             keyboardType="phone-pad"
-            maxLength={10}
+            maxLength={14}
             rules={{
               required: 'Phone number is required',
               pattern: {
-                value: /^[0-9]{10}$/,
-                message: 'Enter a valid 10-digit phone number',
+                value: /^(\+880|880|0)?1[3-9][0-9]{8}$/,
+                message: 'Enter a valid BD number (e.g. +8801703059461)',
               },
             }}
             icon={<Phone size={20} color={COLORS.grey} />}

@@ -8,6 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 import { Controller } from 'react-hook-form';
+import { Eye, EyeOff } from 'lucide-react-native';
 import COLORS from '../styles/colors';
 
 const CustomInput = ({
@@ -79,9 +80,11 @@ const CustomInput = ({
                 style={styles.eyeButton}
                 hitSlop={8}
               >
-                <Text style={styles.eyeText}>
-                  {showPassword ? '🙈' : '👁️'}
-                </Text>
+                {showPassword ? (
+                  <EyeOff size={20} color={COLORS.grey} />
+                ) : (
+                  <Eye size={20} color={COLORS.grey} />
+                )}
               </Pressable>
             )}
           </Pressable>
@@ -150,9 +153,6 @@ const styles = StyleSheet.create({
   eyeButton: {
     padding: 8,
     marginLeft: 4,
-  },
-  eyeText: {
-    fontSize: 18,
   },
   errorText: {
     fontSize: 12,

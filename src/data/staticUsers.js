@@ -24,6 +24,22 @@ const STATIC_USERS = [
     email: 'test@gmail.com',
     phone: '0191234567',
     password: 'test123',
+    bloodGroup: 'A+',
+  },
+  {
+    id: '3',
+    fullName: 'Admin',
+    email: 'admin@gmail.com',
+    phone: '0191234567',
+    password: 'admin123',
+    bloodGroup: 'B-',
+  },
+  {
+    id: '3',
+    fullName: 'User',
+    email: 'user@gmail.com',
+    phone: '0191234567',
+    password: 'user123',
     bloodGroup: 'B+',
   },
 ];

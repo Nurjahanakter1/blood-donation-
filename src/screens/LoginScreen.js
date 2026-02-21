@@ -82,8 +82,8 @@ const LoginScreen = ({ navigation }) => {
               rules={{
                 required: 'Email or phone is required',
                 pattern: {
-                  value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[0-9]{10})$/,
-                  message: 'Enter a valid email or 10-digit phone',
+                  value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(\+880|880|0)?1[3-9][0-9]{8})$/,
+                  message: 'Enter a valid email or BD phone (+880...)',
                 },
               }}
               icon={<Mail size={20} color={COLORS.grey} />}
