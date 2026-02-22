@@ -3,7 +3,6 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -15,6 +14,7 @@ import { Mail, ArrowLeft, KeyRound } from 'lucide-react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import COLORS from '../../styles/colors';
+import styles from '../../styles/forgotPasswordStyles';
 import { isEmailRegistered } from '../../data/auth/users';
 
 const ForgotPassword = ({ navigation }) => {
@@ -28,15 +28,15 @@ const ForgotPassword = ({ navigation }) => {
     const exists = isEmailRegistered(data.email);
     if (exists) {
       Alert.alert(
-        '✅ OTP Sent!',
-        `A verification code has been sent to ${data.email}. Use code: 1234`,
-        [{ text: 'Enter OTP', onPress: () => navigation.navigate('OTP') }]
+        '📩 OTP Sent',
+        'Password reset OTP has been sent to your email.',
+        [{ text: 'Enter OTP', onPress: () => navigation.navigate('OTP', { email: data.email, flow: 'forgot_password' }) }]
       );
     } else {
       Alert.alert(
-        '❌ Account Not Found',
-        'No account found with this email/phone. Please check and try again.',
-        [{ text: 'Try Again' }]
+        '❌ User Not Found',
+        'No user found with this email or mobile number.',
+        [{ text: 'OK' }]
       );
     }
   };
@@ -89,7 +89,7 @@ const ForgotPassword = ({ navigation }) => {
                 message: 'Enter a valid email or 10-digit phone',
               },
             }}
-              icon={<Mail size={20} color={COLORS.grey} />}
+            icon={<Mail size={20} color={COLORS.grey} />}
           />
 
           <CustomButton
@@ -112,68 +112,5 @@ const ForgotPassword = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingBottom: 30,
-  },
-  backButton: {
-    marginTop: 50,
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    backgroundColor: COLORS.inputBg,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  illustrationContainer: {
-    alignItems: 'center',
-    marginTop: 40,
-    marginBottom: 30,
-  },
-  iconCircle: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: COLORS.primaryLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '800',
-    color: COLORS.text,
-    marginBottom: 12,
-  },
-  description: {
-    fontSize: 15,
-    color: COLORS.grey,
-    lineHeight: 23,
-    marginBottom: 32,
-  },
-  formContainer: {},
-  sendButton: {
-    marginTop: 8,
-  },
-  backToLogin: {
-    alignItems: 'center',
-    marginTop: 30,
-    paddingVertical: 10,
-  },
-  backToLoginText: {
-    fontSize: 15,
-    color: COLORS.grey,
-  },
-  backToLoginLink: {
-    color: COLORS.primary,
-    fontWeight: '700',
-  },
-});
 
 export default ForgotPassword;

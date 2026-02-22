@@ -3,7 +3,6 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -13,14 +12,14 @@ import {
   Alert,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
-import { User, Phone, Lock, ShieldCheck, Mail } from 'lucide-react-native';
+import { User, Phone, Lock, Mail } from 'lucide-react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import CustomDropdown from '../../components/CustomDropdown';
 import COLORS from '../../styles/colors';
+import styles from '../../styles/registerStyles';
 import { addUser, findUserByEmail } from '../../data/auth/users';
 
-const { width } = Dimensions.get('window');
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 const Register = ({ navigation }) => {
@@ -38,19 +37,17 @@ const Register = ({ navigation }) => {
   const password = watch('password');
 
   const onRegisterPress = (data) => {
-    // Check if email already exists
     const existingUser = findUserByEmail(data.email);
     if (existingUser) {
       Alert.alert(
         '⚠️ Already Registered',
-        'This email is already registered. Please login instead.',
-        [{ text: 'Go to Login', onPress: () => navigation.goBack() }]
+        'User already exists. Please login.',
+        [{ text: 'Login', onPress: () => navigation.goBack() }]
       );
       return;
     }
 
-    // Add new user to static list
-    const newUser = addUser({
+    addUser({
       fullName: data.fullName,
       email: data.email,
       phone: data.phone,
@@ -59,9 +56,9 @@ const Register = ({ navigation }) => {
     });
 
     Alert.alert(
-      '🎉 Registration Successful!',
-      `Welcome ${data.fullName}! Your account has been created. Please verify your OTP.`,
-      [{ text: 'Verify OTP', onPress: () => navigation.navigate('OTP') }]
+      '✅ Registration Successful',
+      'Registration successful. Please verify your OTP.',
+      [{ text: 'Verify OTP', onPress: () => navigation.navigate('OTP', { flow: 'register' }) }]
     );
   };
 
@@ -207,82 +204,5 @@ const Register = ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    paddingBottom: 30,
-  },
-
-  // Hero Image
-  imageSection: {
-    width: width,
-    height: 200,
-    position: 'relative',
-  },
-  heroImage: {
-    width: '100%',
-    height: '100%',
-  },
-  imageOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(229, 57, 53, 0.55)',
-  },
-  imageTextContainer: {
-    position: 'absolute',
-    bottom: 24,
-    left: 24,
-  },
-  imageTitle: {
-    fontSize: 26,
-    fontWeight: '800',
-    color: COLORS.white,
-    marginBottom: 4,
-  },
-  imageSubtitle: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.85)',
-  },
-  formContainer: {
-    flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 20,
-  },
-  termsText: {
-    fontSize: 13,
-    color: COLORS.grey,
-    textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 20,
-    paddingHorizontal: 8,
-  },
-  termsLink: {
-    color: COLORS.primary,
-    fontWeight: '600',
-  },
-  registerButton: {
-    marginBottom: 16,
-  },
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-  },
-  loginText: {
-    fontSize: 15,
-    color: COLORS.grey,
-  },
-  loginLink: {
-    fontSize: 15,
-    color: COLORS.primary,
-    fontWeight: '700',
-  },
-});
 
 export default Register;

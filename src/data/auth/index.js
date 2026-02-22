@@ -6,5 +6,6 @@ export {
   addUser,
   validateLogin,
   isEmailRegistered,
+  changeUserPassword,
   STATIC_OTP,
 } from './users';

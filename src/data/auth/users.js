@@ -66,16 +66,26 @@ export const addUser = (user) => {
 export const validateLogin = (emailOrPhone, password) => {
   const user = findUserByEmail(emailOrPhone);
   if (!user) {
-    return { success: false, message: 'Account not found! Please check your email or phone.' };
+    return { success: false, user: null, message: 'Account not found.' };
   }
   if (user.password !== password) {
-    return { success: false, message: 'Incorrect password! Please try again.' };
+    return { success: false, user, message: 'Incorrect password.' };
   }
   return { success: true, message: 'Login successful!', user };
 };
 
 export const isEmailRegistered = (email) => {
   return !!findUserByEmail(email);
+};
+
+// Change user password (after OTP verification)
+export const changeUserPassword = (email, newPassword) => {
+  const user = findUserByEmail(email);
+  if (!user) {
+    return { success: false, message: 'User not found.' };
+  }
+  user.password = newPassword;
+  return { success: true, message: 'Password changed successfully.' };
 };
 
 // Static OTP for testing

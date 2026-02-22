@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import COLORS from '../styles/colors';
 
 // Auth Screens
-import { Login, Register, ForgotPassword, OTP } from '../screens/auth';
+import { Login, Register, ForgotPassword, OTP, ResetPassword } from '../screens/auth';
 // Home Screen
 import { Home } from '../screens/home';
 // Donor Screens
@@ -63,6 +63,14 @@ const AppNavigator = () => {
         component={OTP}
         options={{
           title: 'Verify OTP',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{
+          title: 'Reset Password',
           headerShown: false,
         }}
       />
