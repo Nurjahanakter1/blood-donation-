@@ -2,4 +2,4 @@
 export { default as CustomButton } from './CustomButton';
 export { default as CustomInput } from './CustomInput';
 export { default as CustomDropdown } from './CustomDropdown';
-export { default as BloodDropLogo } from './BloodDropLogo';
+export { default as DonorCard } from './DonorCard';

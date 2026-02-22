@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  Alert,
 } from 'react-native';
 import {
   Search,
@@ -15,10 +16,11 @@ import {
   MapPin,
   Droplets,
   CircleUser,
+  LogOut,
 } from 'lucide-react-native';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/homeStyles';
-import { QUICK_ACTIONS, STATIC_DONORS, BLOOD_STATS } from '../../data/home/homeData';
+import { QUICK_ACTIONS, STATIC_DONORS, BLOOD_STATS } from '../../data';
 
 // ─── Sub-Components ──────────────────────────────────────────────
 const QuickActionCard = ({ item, onPress }) => (
@@ -72,6 +74,21 @@ const NearbyDonorCard = ({ donor }) => (
 
 // ─── Home Screen ─────────────────────────────────────────────────
 const Home = ({ navigation }) => {
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: () => navigation.reset({ index: 0, routes: [{ name: 'Login' }] }),
+        },
+      ]
+    );
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -84,10 +101,15 @@ const Home = ({ navigation }) => {
             <Text style={styles.greeting}>Hello, Donor! 👋</Text>
             <Text style={styles.greetingSub}>Ready to save a life today?</Text>
           </View>
-          <TouchableOpacity style={styles.notificationBtn}>
-            <Bell size={22} color={COLORS.white} />
-            <View style={styles.notifBadge} />
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity style={styles.notificationBtn}>
+              <Bell size={22} color={COLORS.white} />
+              <View style={styles.notifBadge} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+              <LogOut size={22} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Search Bar (UI only) */}

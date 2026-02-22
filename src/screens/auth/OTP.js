@@ -13,7 +13,7 @@ import CustomButton from '../../components/CustomButton';
 import { ArrowLeft, ShieldCheck } from 'lucide-react-native';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/otpStyles';
-import { STATIC_OTP } from '../../data/auth/users';
+import { STATIC_OTP } from '../../data';
 
 const OTP_LENGTH = 4;
 

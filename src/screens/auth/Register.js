@@ -18,7 +18,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomDropdown from '../../components/CustomDropdown';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/registerStyles';
-import { addUser, findUserByEmail } from '../../data/auth/users';
+import { addUser, findUserByEmail } from '../../data';
 
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 

@@ -15,7 +15,7 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/resetPasswordStyles';
-import { changeUserPassword } from '../../data/auth/users';
+import { changeUserPassword } from '../../data';
 
 const ResetPassword = ({ route, navigation }) => {
   const email = route?.params?.email || '';

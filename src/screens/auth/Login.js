@@ -16,7 +16,7 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/loginStyles';
-import { validateLogin } from '../../data/auth/users';
+import { validateLogin } from '../../data';
 
 const Login = ({ navigation }) => {
   const { control, handleSubmit } = useForm({

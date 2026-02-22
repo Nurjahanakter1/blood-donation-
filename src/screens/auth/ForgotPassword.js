@@ -15,7 +15,7 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/forgotPasswordStyles';
-import { isEmailRegistered } from '../../data/auth/users';
+import { isEmailRegistered } from '../../data';
 
 const ForgotPassword = ({ navigation }) => {
   const { control, handleSubmit } = useForm({

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Search, ArrowLeft, SlidersHorizontal, Droplets } from 'lucide-react-native';
 import DonorCard from '../../components/DonorCard';
-import DONORS, { BLOOD_GROUPS } from '../../data/donor/donors';
+import { DONORS, BLOOD_GROUPS } from '../../data';
 import COLORS from '../../styles/colors';
 import styles from '../../styles/donorListStyles';
 
